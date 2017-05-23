@@ -26,7 +26,7 @@ class BottleVerse
   def to_s
     [
       "#{quantity @verse_number} #{container @verse_number} of beer on the wall, #{quantity @verse_number} #{container @verse_number} of beer.",
-      "#{action_to_perform(@verse_number)}, #{quantity ((@verse_number - 1))} #{ container @verse_number - 1} of beer on the wall.",
+      "#{action_to_perform(@verse_number)}, #{quantity (((@verse_number - 1) % (@total_verses + 1)))} #{ container @verse_number - 1} of beer on the wall.",
       ""
     ].map(&:capitalize).join("\n")
   end
@@ -53,7 +53,7 @@ class BottleVerse
     if n === 0
       'no more'
     else
-      n % (@total_verses + 1)
+      n
     end
   end
 
