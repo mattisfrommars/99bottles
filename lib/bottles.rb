@@ -1,7 +1,9 @@
 # Knows about songs and singing
 class Bottles
+  TOTAL_VERSES = 99
+
   def verse(n)
-    BottleVerse.new(n).to_s
+    BottleVerse.new(n, TOTAL_VERSES).to_s
   end
 
   def verses(hi, lo)
@@ -11,19 +13,20 @@ class Bottles
   end
 
   def song
-    verses 99, 0
+    verses TOTAL_VERSES, 0
   end
 end
 
 class BottleVerse
-  def initialize(n)
-    @n = n
+  def initialize(verse_number, total_verses)
+    @verse_number = verse_number
+    @total_verses = total_verses
   end
 
   def to_s
     [
-      "#{quantity @n} #{container @n} of beer on the wall, #{quantity @n} #{container @n} of beer.",
-      "#{action_to_perform(@n)}, #{quantity ((@n - 1) % 100)} #{ container @n - 1} of beer on the wall.",
+      "#{quantity @verse_number} #{container @verse_number} of beer on the wall, #{quantity @verse_number} #{container @verse_number} of beer.",
+      "#{action_to_perform(@verse_number)}, #{quantity ((@verse_number - 1))} #{ container @verse_number - 1} of beer on the wall.",
       ""
     ].map(&:capitalize).join("\n")
   end
@@ -50,7 +53,7 @@ class BottleVerse
     if n === 0
       'no more'
     else
-      n
+      n % (@total_verses + 1)
     end
   end
 
